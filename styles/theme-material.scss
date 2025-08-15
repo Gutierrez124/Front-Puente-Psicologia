@@ -1,0 +1,50 @@
+@use "@angular/material" as mat;
+@use "../styles/variables" as *;
+@use "sass:map";
+
+// 1. Paleta personalizada basada en #3dc2ff
+$front-agenda-smart-primary: mat.define-palette((
+  50: #e1f7ff,
+  100: #b3eaff,
+  200: #80dcff,
+  300: #4dceff,
+  400: #26c4ff,
+  500: #2CBBCE,
+  600: #1eb8f5,
+  700: #00aeea,
+  800: #00a4e0,
+  900: #0092cc,
+  A100: #ffffff,
+  A200: #e6f7ff,
+  A400: #99e0ff,
+  A700: #4dc9ff,
+  contrast: (
+    50: black,
+    100: black,
+    200: black,
+    300: black,
+    400: black,
+    500: white,
+    600: black,
+    700: white,
+    800: white,
+    900: white,
+    A100: black,
+    A200: black,
+    A400: black,
+    A700: black,
+  )
+));
+
+$front-agenda-smart-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$front-agenda-smart-warn: mat.define-palette(mat.$red-palette);
+$front-agenda-smart-theme: mat.define-light-theme((
+  color: (
+    primary: $front-agenda-smart-primary,
+    accent: $front-agenda-smart-accent,
+    warn: $front-agenda-smart-warn,
+  )
+));
+
+@include mat.core();
+@include mat.all-component-themes($front-agenda-smart-theme);

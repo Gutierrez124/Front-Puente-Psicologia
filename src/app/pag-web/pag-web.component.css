@@ -1,0 +1,167 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f9fafb;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0f766e; /* teal-700 */
+  color: white;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo-icon {
+  font-size: 1.8rem;
+}
+
+.brand-name {
+  font-weight: 700;
+  font-size: 1.5rem;
+  user-select: none;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-link {
+  color: white;
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+.btn-link:hover,
+.btn-link.active {
+  background-color: #14b8a6; /* teal-400 */
+}
+
+.btn {
+  padding: 0.5rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: none;
+  user-select: none;
+}
+
+/* Main content */
+.main-content {
+  flex-grow: 1;
+  padding: 4rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hero {
+  max-width: 600px;
+}
+
+.hero h1 {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  color: #064e3b;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #166534;
+  line-height: 1.6;
+}
+
+.btn-lg {
+  font-size: 1.1rem;
+  padding: 0.75rem 2.5rem;
+  border-radius: 8px;
+}
+
+/* Nosotros page */
+.about {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: left;
+  color: #064e3b;
+}
+
+.about h1 {
+  font-size: 2.4rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+.about p {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+}
+
+.about em {
+  font-style: italic;
+  color: #0d9488;
+}
+
+/* Footer */
+.footer {
+  background-color: #0f766e;
+  color: white;
+  padding: 1rem 0;
+  text-align: center;
+  font-size: 0.9rem;
+  user-select: none;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .navbar-right {
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .main-content {
+    padding: 2rem 1rem;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+}

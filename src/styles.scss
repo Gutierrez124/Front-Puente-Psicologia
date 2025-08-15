@@ -1,0 +1,25 @@
+@use "../styles/variables" as *;
+@use "../styles/theme-material" as *;
+@use "../styles/notifications" as *;
+//@use "../node_modules/angular-calendar/css/angular-calendar.css";
+//@use "./directives/mat-table-responsive/mat-table-responsive.directive";
+@use "../styles/common_factory.scss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* styles.css o dashboard.component.css */
+:root {
+  --header-height: 45px;
+}
+
+header {
+  height: var(--header-height);
+}
+
+.main-content {
+  padding-top: var(--header-height);
+}

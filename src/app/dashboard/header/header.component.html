@@ -1,0 +1,47 @@
+<header class="fixed top-0 left-0 w-full z-50 bg-primary shadow-md min-h-[45px] flex items-center">
+  <div class="w-full">
+    <nav class="flex items-center justify-between px-3 py-0">
+      <div class="lg:hidden text-2xl cursor-pointer">
+        <i class='bx bx-menu'></i>
+      </div>
+
+      <div class="flex-grow px-2 hidden md:block">
+      </div>
+
+      <div class="relative">
+        <button
+          class="flex items-center focus:outline-none"
+          id="userMenuButton"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <div class="ps-2 text-left">
+            <!-- Contenido opcional -->
+          </div>
+        </button>
+        <ul
+          class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-md shadow-lg z-50 hidden"
+          id="userDropdown"
+        >
+          <li>
+            <a
+              href="javascript:;"
+              class="flex items-center px-4 py-2 hover:bg-gray-100 text-sm text-gray-700"
+            >
+              <i class="bx bx-user me-2"></i><span>Profile</span>
+            </a>
+          </li>
+          <li><hr class="border-gray-200 my-1" /></li>
+          <li>
+            <a
+              href="javascript:;"
+              class="flex items-center px-4 py-2 hover:bg-gray-100 text-sm text-gray-700"
+            >
+              <i class="bx bx-log-out-circle me-2"></i><span>Logout</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</header>

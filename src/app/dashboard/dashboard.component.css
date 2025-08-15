@@ -1,0 +1,28 @@
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Sidenav fijo a la izquierda */
+.sidenav-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  z-index: 1000;
+}
+
+/* Espacio para el contenido principal */
+.main-content {
+  margin-left: 250px; /* ancho del sidenav cuando está expandido */
+  width: calc(100% - 250px);
+  transition: margin-left 0.3s ease;
+}
+
+/* Si el sidebar está colapsado */
+.sidebar-collapsed {
+  margin-left: 80px; /* ancho reducido del sidenav colapsado */
+  width: calc(100% - 80px);
+}

@@ -1,0 +1,21 @@
+@use '../styles/variables' as *;
+
+.mat-snack-bar-container {
+  color: white !important;
+}
+
+.blue-snackbar {
+  background: $primary;
+}
+
+.success-snackbar {
+  background: $success;
+}
+
+.warm-snackbar {
+  background: $warning;
+}
+
+.error-snackbar {
+  background: $error;
+}

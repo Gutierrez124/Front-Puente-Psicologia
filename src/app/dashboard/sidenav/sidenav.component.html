@@ -1,0 +1,390 @@
+<!-- Sidebar -->
+<div
+  class="h-screen bg-primary dark:bg-gray-900 text-gray-800 dark:text-white transition-all duration-300 ease-in-out overflow-y-auto"
+  [class.w-16]="isCollapsed && !isHovered"
+  [class.w-52]="!isCollapsed || isHovered"
+  (mouseenter)="isHovered = true"
+  (mouseleave)="isHovered = false"
+>
+  <!-- Header -->
+  <div
+    class="flex items-center justify-between p-4 border-b dark:border-gray-700"
+  >
+    <h4 class="text-xl text-white font-bold" *ngIf="!isCollapsed">Psicología</h4>
+    <button
+      (click)="toggleSidebar()"
+      class="text-lg focus:outline-none appearance-none bg-transparent border-none"
+    >
+      <i
+        class="bx text-white"
+        [ngClass]="isCollapsed ? 'bx-arrow-to-right' : 'bx-arrow-to-left'"
+      ></i>
+    </button>
+  </div>
+
+  <!-- Menu -->
+  <ul class="p-4 space-y-2 text-sm">
+    <!-- Admin: Tablero -->
+    <li *ngIf="isAdmin()">
+      <a
+        routerLink="./tablero"
+        class="flex items-center gap-3 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+      >
+        <i class="bx text-white bx-home text-lg"></i>
+        <span *ngIf="!isCollapsed || isHovered" class="text-white" >Tablero</span>
+      </a>
+    </li>
+
+    <!-- Admin: Usuarios -->
+    <li *ngIf="isAdmin()">
+      <a
+        routerLink="./user"
+        class="flex items-center gap-3 w-full p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+      >
+        <i class="bx bx-cog text-white text-lg"></i>
+        <span class="text-white" *ngIf="!isCollapsed || isHovered">
+          Usuarios
+        </span>
+      </a>
+    </li>
+
+    <li *ngIf="isAdmin()">
+      <div>
+        <button
+          (click)="toggleSection('psicologos')"
+          class="flex text-white items-center justify-between gap-3 w-full p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+        >
+          <div class="flex items-center gap-3">
+            <i class="bx bx-box text-white text-lg"></i>
+            <!-- Texto visible solo si está expandido o en hover -->
+            <span class="text-white" *ngIf="!isCollapsed || isHovered"
+              >Psicólogos</span
+            >
+          </div>
+
+          <!-- Flecha (solo visible si menú expandido o hovered) -->
+          <i
+            class="bx bx-chevron-down transition-transform duration-200"
+            [ngClass]="{
+              'rotate-180': isSectionExpanded('psicologos'),
+              hidden: isCollapsed && !isHovered
+            }"
+          ></i>
+        </button>
+
+        <!-- Submenú (solo visible si la sección está expandida Y el sidenav no está colapsado totalmente) -->
+        <ul
+          class="ml-6 mt-1 space-y-1"
+          *ngIf="isSectionExpanded('psicologos') && (!isCollapsed || isHovered)"
+        >
+          <li>
+            <a
+              routerLink="./psicologo"
+              class="flex items-center gap-2 hover:underline"
+            >
+              <i class="bx text-white bx-right-arrow-alt"></i>
+              <span class="text-white" *ngIf="!isCollapsed || isHovered"
+                >Listar Psicólogos</span
+              >
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/dashboard/psicologo/create"
+              class="flex items-center gap-2 hover:underline"
+            >
+              <i class="bx text-white bx-right-arrow-alt"></i>
+              <span class="text-white" *ngIf="!isCollapsed || isHovered"
+                >Crear Psicólogos</span
+              >
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <!-- Admin: Crear paciente -->
+    <li *ngIf="isAdmin()">
+      <div>
+        <button
+          (click)="toggleSection('pacientes')"
+          class="flex text-white items-center justify-between gap-3 w-full p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+        >
+          <div class="flex items-center gap-3">
+            <i class="bx bx-box text-white text-lg"></i>
+            <!-- Texto visible solo si está expandido o en hover -->
+            <span class="text-white" *ngIf="!isCollapsed || isHovered"
+              >Paciente</span
+            >
+          </div>
+
+          <!-- Flecha (solo visible si menú expandido o hovered) -->
+          <i
+            class="bx bx-chevron-down transition-transform duration-200"
+            [ngClass]="{
+              'rotate-180': isSectionExpanded('pacientes'),
+              hidden: isCollapsed && !isHovered
+            }"
+          ></i>
+        </button>
+
+        <!-- Submenú (solo visible si la sección está expandida Y el sidenav no está colapsado totalmente) -->
+        <ul
+          class="ml-6 mt-1 space-y-1"
+          *ngIf="isSectionExpanded('pacientes') && (!isCollapsed || isHovered)"
+        >
+          <li>
+            <a
+              routerLink="./paciente"
+              class="flex items-center gap-2 hover:underline"
+            >
+              <i class="bx text-white bx-right-arrow-alt"></i>
+              <span class="text-white" *ngIf="!isCollapsed || isHovered"
+                >Listar Pacientes</span
+              >
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/dashboard/paciente/save"
+              class="flex items-center gap-2 hover:underline"
+            >
+              <i class="bx text-white bx-right-arrow-alt"></i>
+              <span class="text-white" *ngIf="!isCollapsed || isHovered"
+                >Crear Pacientes</span
+              >
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- Admin: Citas -->
+    <li *ngIf="isAdmin()">
+      <div>
+        <button
+          (click)="toggleSection('citas')"
+          class="flex items-center justify-between gap-3 w-full p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+        >
+          <div class="flex items-center gap-3">
+            <i class="bx bx-calendar text-white text-lg"></i>
+            <span class="text-white" *ngIf="!isCollapsed || isHovered"
+              >Citas</span
+            >
+          </div>
+
+          <i
+            class="bx bx-chevron-down transition-transform duration-200 text-white"
+            [ngClass]="{
+              'rotate-180': isSectionExpanded('citas'),
+              hidden: isCollapsed && !isHovered
+            }"
+          ></i>
+        </button>
+
+        <ul
+          class="ml-6 mt-1 space-y-1"
+          *ngIf="isSectionExpanded('citas') && (!isCollapsed || isHovered)"
+        >
+          <li>
+            <a
+              routerLink="./cita"
+              class="flex items-center gap-2 hover:underline"
+            >
+              <i class="bx text-white bx-right-arrow-alt"></i>
+              <span class="text-white" *ngIf="!isCollapsed || isHovered"
+                >Listar Cita</span
+              >
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="./categorias"
+              class="flex items-center gap-2 hover:underline"
+            >
+              <i class="bx text-white bx-right-arrow-alt"></i>
+              <span class="text-white" *ngIf="!isCollapsed || isHovered"
+                >Crear Cita</span
+              >
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- Admin: Auditorías -->
+    <li *ngIf="isAdmin()">
+      <a
+        routerLink="/dashboard/paciente/create"
+        class="flex items-center gap-3 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+      >
+        <i class="fas fa-users text-white text-lg"></i>
+        <span class="text-white" *ngIf="!isCollapsed || isHovered"
+          >Auditorías</span
+        >
+      </a>
+    </li>
+    <!-- Admin: Banners -->
+    <li *ngIf="isAdmin()">
+      <a
+        routerLink="./landings"
+        class="flex items-center gap-3 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+      >
+        <i class="fas text-white fa-list text-lg"></i>
+        <span class="text-white" *ngIf="!isCollapsed || isHovered"
+          >Banners</span
+        >
+      </a>
+    </li>
+
+    <li *ngIf="isPsicologo() || isPaciente() || isAdmin()">
+      <a
+        routerLink="./perfil"
+        class="flex items-center gap-3 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+      >
+        <i class="bx text-white bx-calendar text-lg"></i>
+        <span class="text-white" *ngIf="!isCollapsed || isHovered">Perfil</span>
+      </a>
+    </li>
+    <li *ngIf="isPsicologo() || isPaciente() || isAdmin()">
+  <a
+    (click)="cerrarSesion()"
+    class="flex items-center gap-3 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
+  >
+    <i class="bx text-white bx-calendar text-lg"></i>
+    <span class="text-white" *ngIf="!isCollapsed || isHovered">
+      Cerrar Sesión
+    </span>
+  </a>
+</li>
+
+    <!-- Psicólogo: Citas -->
+    <li *ngIf="isPsicologo()">
+      <a
+        routerLink=""
+        class="flex items-center gap-3 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+      >
+        <i class="bx text-white bx-calendar text-lg"></i>
+        <span class="text-white" *ngIf="!isCollapsed || isHovered"
+          >Citas Psicólogo</span
+        >
+      </a>
+    </li>
+
+    <!-- Psicólogo: Calendario -->
+    <li *ngIf="isPsicologo()">
+      <a
+        routerLink=""
+        class="flex items-center gap-3 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+      >
+        <i class="bx text-white bx-calendar-event text-lg"></i>
+        <span class="text-white" *ngIf="!isCollapsed || isHovered"
+          >Calendario de Citas</span
+        >
+      </a>
+    </li>
+
+    <!-- Psicólogo: Mensajes -->
+    <li *ngIf="isPsicologo()">
+      <a
+        routerLink=""
+        class="flex items-center gap-3 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+      >
+        <i class="bx text-white bx-chat text-lg"></i>
+        <span class="text-white" *ngIf="!isCollapsed || isHovered"
+          >Mensajes Psicólogo</span
+        >
+      </a>
+    </li>
+
+    <!-- Psicólogo: Ejercicios -->
+    <li *ngIf="isPsicologo()">
+      <a
+        routerLink=""
+        class="flex items-center gap-3 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+      >
+        <i class="bx text-white bx-dumbbell text-lg"></i>
+        <span class="text-white" *ngIf="!isCollapsed || isHovered"
+          >Ejercicios Psicólogo</span
+        >
+      </a>
+    </li>
+
+    <!-- Psicólogo: Encuestas -->
+    <li *ngIf="isPsicologo()">
+      <a
+        routerLink=""
+        class="flex items-center gap-3 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+      >
+        <i class="bx text-white bx-poll text-lg"></i>
+        <span class="text-white" *ngIf="!isCollapsed || isHovered"
+          >Encuestas Psicólogo</span
+        >
+      </a>
+    </li>
+
+    <!-- Paciente: Citas -->
+    <li *ngIf="isPaciente()">
+      <a
+        routerLink=""
+        class="flex items-center gap-3 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+      >
+        <i class="bx text-white bx-calendar text-lg"></i>
+        <span class="text-white" *ngIf="!isCollapsed || isHovered"
+          >Citas Paciente</span
+        >
+      </a>
+    </li>
+
+    <!-- Paciente: Mensajes -->
+    <li *ngIf="isPaciente()">
+      <a
+        routerLink=""
+        class="flex items-center gap-3 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+      >
+        <i class="bx text-white bx-chat text-lg"></i>
+        <span class="text-white" *ngIf="!isCollapsed || isHovered"
+          >Mensajes Paciente</span
+        >
+      </a>
+    </li>
+
+    <!-- Paciente: Ejercicios -->
+    <li *ngIf="isPaciente()">
+      <a
+        routerLink=""
+        class="flex items-center gap-3 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+      >
+        <i class="bx text-white bx-dumbbell text-lg"></i>
+        <span class="text-white" *ngIf="!isCollapsed || isHovered"
+          >Ejercicios Paciente</span
+        >
+      </a>
+    </li>
+
+    <!-- Paciente: Encuestas -->
+    <li *ngIf="isPaciente()">
+      <a
+        routerLink=""
+        class="flex items-center gap-3 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+      >
+        <i class="bx text-white bx-poll text-lg"></i>
+        <span class="text-white" *ngIf="!isCollapsed || isHovered"
+          >Encuestas Paciente</span
+        >
+      </a>
+    </li>
+
+    <!-- Paciente: Libros -->
+    <li *ngIf="isPaciente()">
+      <a
+        routerLink=""
+        class="flex items-center gap-3 p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+      >
+        <i class="bx text-white bx-book text-lg"></i>
+        <span class="text-white" *ngIf="!isCollapsed || isHovered"
+          >Libros Paciente</span
+        >
+      </a>
+    </li>
+  </ul>
+</div>

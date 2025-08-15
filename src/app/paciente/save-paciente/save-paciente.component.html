@@ -1,0 +1,88 @@
+<div class="max-w-5xl mx-auto mt-6">
+  <div class="bg-white shadow-lg rounded-xl overflow-hidden">
+    <!-- Encabezado -->
+    <div class="bg-teal-500 px-6 py-4">
+      <h4 class="text-white text-xl font-semibold">Crear Nuevo Paciente</h4>
+    </div>
+
+    <!-- Cuerpo -->
+    <div class="p-6">
+      <form (ngSubmit)="createPaciente()" class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- DNI -->
+          <div>
+            <label for="dni" class="block text-gray-700 font-medium mb-1">DNI</label>
+            <input 
+              type="text" id="dni" name="dni" [(ngModel)]="dni"
+              class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-teal-400 focus:outline-none" required>
+          </div>
+
+          <!-- Nombre -->
+          <div>
+            <label for="name" class="block text-gray-700 font-medium mb-1">Nombre</label>
+            <input 
+              type="text" id="name" name="name" [(ngModel)]="name"
+              class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-teal-400 focus:outline-none" required>
+          </div>
+
+          <!-- Apellidos -->
+          <div>
+            <label for="apellido" class="block text-gray-700 font-medium mb-1">Apellidos</label>
+            <input 
+              type="text" id="apellido" name="apellido" [(ngModel)]="apellido"
+              class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-teal-400 focus:outline-none" required>
+          </div>
+
+          <!-- Dirección -->
+          <div>
+            <label for="direccion" class="block text-gray-700 font-medium mb-1">Dirección</label>
+            <input 
+              type="text" id="direccion" name="direccion" [(ngModel)]="direccion"
+              class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-teal-400 focus:outline-none" required>
+          </div>
+
+          <!-- Teléfono -->
+          <div>
+            <label for="telefono" class="block text-gray-700 font-medium mb-1">Teléfono</label>
+            <input 
+              type="text" id="telefono" name="telefono" [(ngModel)]="telefono"
+              class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-teal-400 focus:outline-none" required>
+          </div>
+
+          <!-- Teléfono Fijo -->
+          <div>
+            <label for="tel_fijo" class="block text-gray-700 font-medium mb-1">Teléfono Fijo</label>
+            <input 
+              type="text" id="tel_fijo" name="tel_fijo" [(ngModel)]="tel_fijo"
+              class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-teal-400 focus:outline-none" required>
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label for="email" class="block text-gray-700 font-medium mb-1">Correo Electrónico</label>
+            <input 
+              type="email" id="email" name="email" [(ngModel)]="email" autocomplete="off" 
+              class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-teal-400 focus:outline-none" required>
+          </div>
+
+          <!-- Contraseña -->
+          <div>
+            <label for="password" class="block text-gray-700 font-medium mb-1">Contraseña</label>
+            <input 
+              type="password" id="password" name="password" [(ngModel)]="password" autocomplete="new-password" 
+              class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-teal-400 focus:outline-none" required>
+          </div>
+        </div>
+
+        <!-- Botón -->
+        <div class="flex justify-end">
+          <button type="submit" 
+            class="bg-cyan-700 hover:bg-cyan-800 text-white font-semibold px-6 py-2 rounded-lg shadow-md flex items-center gap-2 transition">
+            <i class="fas fa-user-plus"></i>
+            Crear
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

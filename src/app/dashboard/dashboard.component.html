@@ -1,0 +1,29 @@
+<!-- Layout general -->
+<div class="dashboard-container">
+
+  <!-- ✅ Sidenav siempre encima -->
+  <app-sidenav
+    class="sidenav-fixed"
+    [isCollapsed]="isSidebarCollapsed"
+    (toggle)="onSidebarToggle($event)"
+  ></app-sidenav>
+
+  <!-- ✅ Contenido principal (Header + router) -->
+  <div class="main-content" [ngClass]="{ 'sidebar-collapsed': isSidebarCollapsed }">
+    
+    <!-- Header arriba -->
+    <app-header></app-header>
+
+    <!-- Vista dinámica -->
+    <router-outlet></router-outlet>
+
+    <!-- Overlay -->
+    <div class="overlay toggle-icon"></div>
+
+    <!-- Botón scroll -->
+    <!-- <a href="javaScript:;" class="back-to-top">
+      <i class="bx bxs-up-arrow-alt"></i>
+    </a> -->
+
+  </div>
+</div>
