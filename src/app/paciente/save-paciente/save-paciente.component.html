@@ -1,88 +1,163 @@
-<div class="max-w-5xl mx-auto mt-6">
-  <div class="bg-white shadow-lg rounded-xl overflow-hidden">
-    <!-- Encabezado -->
-    <div class="bg-teal-500 px-6 py-4">
-      <h4 class="text-white text-xl font-semibold">Crear Nuevo Paciente</h4>
+<section class="app-shell-page">
+  <div class="surface-panel form-shell">
+    <div class="form-shell__hero">
+      <div>
+        <p class="brand-chip">Gestion de pacientes</p>
+        <h2 class="form-shell__title">Crear nuevo paciente</h2>
+        <p class="form-shell__subtitle">
+          Completa los datos con validaciones claras y un formato consistente.
+        </p>
+      </div>
+      <button type="button" class="btn-secondary-brand" routerLink="/dashboard/paciente">
+        Volver a la lista
+      </button>
     </div>
 
-    <!-- Cuerpo -->
-    <div class="p-6">
-      <form (ngSubmit)="createPaciente()" class="space-y-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <!-- DNI -->
-          <div>
-            <label for="dni" class="block text-gray-700 font-medium mb-1">DNI</label>
-            <input 
-              type="text" id="dni" name="dni" [(ngModel)]="dni"
-              class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-teal-400 focus:outline-none" required>
-          </div>
+    <div class="form-shell__body">
+      <form #pacienteForm="ngForm" (ngSubmit)="createPaciente(pacienteForm)">
+        <div class="form-grid">
+          <mat-form-field appearance="outline" class="brand-field">
+            <mat-label>DNI</mat-label>
+            <input
+              matInput
+              type="text"
+              id="dni"
+              name="dni"
+              [(ngModel)]="dni"
+              #dniModel="ngModel"
+              maxlength="8"
+              required
+              pattern="^[0-9]{8}$"
+              (ngModelChange)="sanitizeDni($event)"
+            />
+            <mat-hint align="end">{{ dni.length || 0 }}/8</mat-hint>
+            <mat-error *ngIf="dniModel.errors?.['required']">El DNI es obligatorio.</mat-error>
+            <mat-error *ngIf="dniModel.errors?.['pattern']">El DNI debe tener 8 digitos.</mat-error>
+          </mat-form-field>
 
-          <!-- Nombre -->
-          <div>
-            <label for="name" class="block text-gray-700 font-medium mb-1">Nombre</label>
-            <input 
-              type="text" id="name" name="name" [(ngModel)]="name"
-              class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-teal-400 focus:outline-none" required>
-          </div>
+          <mat-form-field appearance="outline" class="brand-field">
+            <mat-label>Nombre</mat-label>
+            <input
+              matInput
+              type="text"
+              id="name"
+              name="name"
+              [(ngModel)]="name"
+              #nameModel="ngModel"
+              required
+            />
+            <mat-error *ngIf="nameModel.errors?.['required']">El nombre es obligatorio.</mat-error>
+          </mat-form-field>
 
-          <!-- Apellidos -->
-          <div>
-            <label for="apellido" class="block text-gray-700 font-medium mb-1">Apellidos</label>
-            <input 
-              type="text" id="apellido" name="apellido" [(ngModel)]="apellido"
-              class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-teal-400 focus:outline-none" required>
-          </div>
+          <mat-form-field appearance="outline" class="brand-field">
+            <mat-label>Apellidos</mat-label>
+            <input
+              matInput
+              type="text"
+              id="apellido"
+              name="apellido"
+              [(ngModel)]="apellido"
+              #apellidoModel="ngModel"
+              required
+            />
+            <mat-error *ngIf="apellidoModel.errors?.['required']">Los apellidos son obligatorios.</mat-error>
+          </mat-form-field>
 
-          <!-- Dirección -->
-          <div>
-            <label for="direccion" class="block text-gray-700 font-medium mb-1">Dirección</label>
-            <input 
-              type="text" id="direccion" name="direccion" [(ngModel)]="direccion"
-              class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-teal-400 focus:outline-none" required>
-          </div>
+          <mat-form-field appearance="outline" class="brand-field">
+            <mat-label>Direccion</mat-label>
+            <input
+              matInput
+              type="text"
+              id="direccion"
+              name="direccion"
+              [(ngModel)]="direccion"
+              #direccionModel="ngModel"
+              required
+            />
+            <mat-error *ngIf="direccionModel.errors?.['required']">La direccion es obligatoria.</mat-error>
+          </mat-form-field>
 
-          <!-- Teléfono -->
-          <div>
-            <label for="telefono" class="block text-gray-700 font-medium mb-1">Teléfono</label>
-            <input 
-              type="text" id="telefono" name="telefono" [(ngModel)]="telefono"
-              class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-teal-400 focus:outline-none" required>
-          </div>
+          <mat-form-field appearance="outline" class="brand-field">
+            <mat-label>Telefono celular</mat-label>
+            <input
+              matInput
+              type="text"
+              id="telefono"
+              name="telefono"
+              [(ngModel)]="telefono"
+              #telefonoModel="ngModel"
+              maxlength="9"
+              required
+              pattern="^[0-9]{9}$"
+              (ngModelChange)="sanitizeTelefono($event)"
+            />
+            <mat-hint align="end">{{ telefono.length || 0 }}/9</mat-hint>
+            <mat-error *ngIf="telefonoModel.errors?.['required']">El telefono es obligatorio.</mat-error>
+            <mat-error *ngIf="telefonoModel.errors?.['pattern']">El telefono debe tener 9 digitos.</mat-error>
+          </mat-form-field>
 
-          <!-- Teléfono Fijo -->
-          <div>
-            <label for="tel_fijo" class="block text-gray-700 font-medium mb-1">Teléfono Fijo</label>
-            <input 
-              type="text" id="tel_fijo" name="tel_fijo" [(ngModel)]="tel_fijo"
-              class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-teal-400 focus:outline-none" required>
-          </div>
+          <mat-form-field appearance="outline" class="brand-field">
+            <mat-label>Telefono fijo</mat-label>
+            <input
+              matInput
+              type="text"
+              id="tel_fijo"
+              name="tel_fijo"
+              [(ngModel)]="tel_fijo"
+              #telFijoModel="ngModel"
+              maxlength="7"
+              required
+              pattern="^[0-9]{7}$"
+              (ngModelChange)="sanitizeTelefonoFijo($event)"
+            />
+            <mat-hint align="end">{{ tel_fijo.length || 0 }}/7</mat-hint>
+            <mat-error *ngIf="telFijoModel.errors?.['required']">El telefono fijo es obligatorio.</mat-error>
+            <mat-error *ngIf="telFijoModel.errors?.['pattern']">El telefono fijo debe tener 7 digitos.</mat-error>
+          </mat-form-field>
 
-          <!-- Email -->
-          <div>
-            <label for="email" class="block text-gray-700 font-medium mb-1">Correo Electrónico</label>
-            <input 
-              type="email" id="email" name="email" [(ngModel)]="email" autocomplete="off" 
-              class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-teal-400 focus:outline-none" required>
-          </div>
+          <mat-form-field appearance="outline" class="brand-field">
+            <mat-label>Correo electronico</mat-label>
+            <input
+              matInput
+              type="email"
+              id="email"
+              name="email"
+              [(ngModel)]="email"
+              #emailModel="ngModel"
+              [pattern]="emailPattern"
+              autocomplete="off"
+              required
+              (ngModelChange)="sanitizeCorreo($event)"
+            />
+            <mat-error *ngIf="emailModel.errors?.['required']">El correo es obligatorio.</mat-error>
+            <mat-error *ngIf="emailModel.errors?.['pattern']">Ingresa un correo valido.</mat-error>
+          </mat-form-field>
 
-          <!-- Contraseña -->
-          <div>
-            <label for="password" class="block text-gray-700 font-medium mb-1">Contraseña</label>
-            <input 
-              type="password" id="password" name="password" [(ngModel)]="password" autocomplete="new-password" 
-              class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-teal-400 focus:outline-none" required>
-          </div>
+          <mat-form-field appearance="outline" class="brand-field">
+            <mat-label>Contrasena</mat-label>
+            <input
+              matInput
+              type="password"
+              id="password"
+              name="password"
+              [(ngModel)]="password"
+              #passwordModel="ngModel"
+              autocomplete="new-password"
+              required
+            />
+            <mat-error *ngIf="passwordModel.errors?.['required']">La contrasena es obligatoria.</mat-error>
+          </mat-form-field>
         </div>
 
-        <!-- Botón -->
-        <div class="flex justify-end">
-          <button type="submit" 
-            class="bg-cyan-700 hover:bg-cyan-800 text-white font-semibold px-6 py-2 rounded-lg shadow-md flex items-center gap-2 transition">
-            <i class="fas fa-user-plus"></i>
-            Crear
+        <div class="form-actions">
+          <button type="button" class="btn-secondary-brand" routerLink="/dashboard/paciente">
+            Cancelar
+          </button>
+          <button type="submit" class="btn-primary-brand" [disabled]="pacienteForm.invalid || !isFormDataValid()">
+            Crear paciente
           </button>
         </div>
       </form>
     </div>
   </div>
-</div>
+</section>

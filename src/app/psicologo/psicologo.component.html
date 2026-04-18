@@ -1,102 +1,162 @@
-<div class="container mx-auto px-4">
-  <section class="section">
-    <div class="section-body">
-      <h2 class="mb-4 text-xl font-bold text-center">Lista de Usuarios</h2>
+<section class="app-shell-page">
+  <div class="page-toolbar surface-panel">
+    <div>
+      <h1 class="page-title">Psicologos</h1>
+      <p class="page-caption">Gestiona profesionales y crea nuevos registros desde un modal.</p>
+    </div>
+    <div class="page-toolbar__actions">
+      <button type="button" class="btn-muted" (click)="loadPsicologos()">Actualizar</button>
+      <button type="button" class="btn-primary-soft" (click)="openCreateModal()">Nuevo psicologo</button>
+    </div>
+  </div>
 
-      <div class="flex gap-2 mb-4">
-        <button mat-stroked-button color="primary" type="button" data-bs-toggle="modal" (click)="createPsicologo()" data-bs-target="#nuevoUsuario"
-          class="flex items-center gap-1 border border-blue-500 text-blue-500 px-3 py-1 rounded hover:bg-blue-50 transition">
-          <mat-icon class="text-base">person_add</mat-icon> Nuevo Usuario
-        </button>
-        <button mat-stroked-button color="warn"
-          class="flex items-center gap-1 border border-red-500 text-red-500 px-3 py-1 rounded hover:bg-red-50 transition">
-          <mat-icon class="text-base">delete</mat-icon>
-        </button>
-      </div>
-
-      <div class="card border rounded shadow">
-        <div class="card-header bg-gray-100 font-semibold text-center py-2">
-          Usuarios Registrados
-        </div>
-        <div class="card-body p-4">
-          <div class="overflow-x-auto flex flex-col items-center">
-            <table mat-table [dataSource]="dataSource" matSort
-              class="w-full border border-gray-200 text-center text-sm">
-              
-              <!-- ID -->
-              <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 font-bold bg-gray-100">ID</th>
-                <td mat-cell *matCellDef="let user" class="px-4 py-2">{{user.id}}</td>
-              </ng-container>
-
-              <!-- DNI -->
-              <ng-container matColumnDef="dni">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 font-bold bg-gray-100">DNI</th>
-                <td mat-cell *matCellDef="let user" class="px-4 py-2">{{user.dni}}</td>
-              </ng-container>
-
-              <!-- Nombre -->
-              <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 font-bold bg-gray-100">Nombre</th>
-                <td mat-cell *matCellDef="let user" class="px-4 py-2">{{user.name}}</td>
-              </ng-container>
-
-              <!-- Apellido -->
-              <ng-container matColumnDef="apellido">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 font-bold bg-gray-100">Apellidos</th>
-                <td mat-cell *matCellDef="let user" class="px-4 py-2">{{user.apellido}}</td>
-              </ng-container>
-
-              <!-- Dirección -->
-              <ng-container matColumnDef="direccion">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 font-bold bg-gray-100">Dirección</th>
-                <td mat-cell *matCellDef="let user" class="px-4 py-2">{{user.direccion}}</td>
-              </ng-container>
-
-              <!-- Teléfono -->
-              <ng-container matColumnDef="telefono">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 font-bold bg-gray-100">Teléfono</th>
-                <td mat-cell *matCellDef="let user" class="px-4 py-2">{{user.telefono}}</td>
-              </ng-container>
-
-              <!-- Teléfono fijo -->
-              <ng-container matColumnDef="tel_fijo">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 font-bold bg-gray-100">Teléfono Fijo</th>
-                <td mat-cell *matCellDef="let user" class="px-4 py-2">{{user.tel_fijo}}</td>
-              </ng-container>
-
-              <!-- Email -->
-              <ng-container matColumnDef="email">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 font-bold bg-gray-100">Email</th>
-                <td mat-cell *matCellDef="let user" class="px-4 py-2">{{user.email}}</td>
-              </ng-container>
-
-              <!-- Acciones -->
-              <ng-container matColumnDef="acciones">
-                <th mat-header-cell *matHeaderCellDef class="px-4 py-2 font-bold bg-gray-100">Acciones</th>
-                <td mat-cell *matCellDef="let user" class="px-4 py-2">
-                  <button mat-icon-button color="warn" (click)="deletePsicologo(user.id)" class="mx-1 text-red-500 hover:text-red-700">
-                    <mat-icon class="text-lg">delete</mat-icon>
-                  </button>
-                 <a mat-icon-button color="primary" (click)="editarUsuario(user.id, 'psicologo')" class="mx-1 text-blue-500 hover:text-blue-700">
-  <mat-icon class="text-lg">edit</mat-icon>
-</a>
-
-                </td>
-              </ng-container>
-
-              <tr mat-header-row *matHeaderRowDef="displayedColumns" class="hover:bg-gray-100"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover:bg-gray-100"></tr>
-            </table>
-
-            <!-- Paginador centrado -->
-           <div class="flex justify-end w-full mt-3">
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-</div>
-
-          </div>
-        </div>
+  <div class="surface-panel table-shell">
+    <div class="table-toolbar">
+      <div>
+        <h2 class="table-title">Listado</h2>
+        <p class="table-subtitle">{{ dataSource.data.length }} psicologos registrados.</p>
       </div>
     </div>
-  </section>
+
+    <div class="table-wrapper">
+      <div class="overflow-x-auto">
+        <table mat-table [dataSource]="dataSource" matSort class="brand-table">
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+            <td mat-cell *matCellDef="let user">{{ user.id }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="dni">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>DNI</th>
+            <td mat-cell *matCellDef="let user">{{ user.dni }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+            <td mat-cell *matCellDef="let user">{{ user.name }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="apellido">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Apellidos</th>
+            <td mat-cell *matCellDef="let user">{{ user.apellido }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="direccion">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Direccion</th>
+            <td mat-cell *matCellDef="let user">{{ user.direccion }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="telefono">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Celular</th>
+            <td mat-cell *matCellDef="let user">{{ user.telefono }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="tel_fijo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Fijo</th>
+            <td mat-cell *matCellDef="let user">{{ user.tel_fijo }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Correo</th>
+            <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+            <td mat-cell *matCellDef="let user">
+              <button mat-icon-button color="primary" (click)="editarUsuario(user.id, 'psicologo')" aria-label="Editar psicologo">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deletePsicologo(user.id)" aria-label="Eliminar psicologo">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="table-paginator">
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+</section>
+
+<div class="modal-backdrop" *ngIf="createModalOpen" (click)="closeCreateModal()">
+  <div class="modal-panel" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <div>
+        <h3 class="modal-title">Nuevo psicologo</h3>
+        <p class="modal-subtitle">Crea el registro desde aqui sin cambiar de pantalla.</p>
+      </div>
+      <button type="button" class="modal-close" (click)="closeCreateModal()">×</button>
+    </div>
+
+    <form #psicologoForm="ngForm" (ngSubmit)="submitCreate(psicologoForm)" class="modal-body">
+      <div class="form-grid form-grid--compact">
+        <mat-form-field appearance="outline" class="brand-field">
+          <mat-label>DNI</mat-label>
+          <input matInput name="dni" [(ngModel)]="form.dni" #dniModel="ngModel" maxlength="8" required pattern="^[0-9]{8}$" (ngModelChange)="sanitizeDni($event)" />
+          <mat-hint align="end">{{ form.dni.length || 0 }}/8</mat-hint>
+          <mat-error *ngIf="dniModel.errors?.['required']">El DNI es obligatorio.</mat-error>
+          <mat-error *ngIf="dniModel.errors?.['pattern']">El DNI debe tener 8 digitos.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="brand-field">
+          <mat-label>Nombre</mat-label>
+          <input matInput name="name" [(ngModel)]="form.name" #nameModel="ngModel" required />
+          <mat-error *ngIf="nameModel.errors?.['required']">El nombre es obligatorio.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="brand-field">
+          <mat-label>Apellidos</mat-label>
+          <input matInput name="apellido" [(ngModel)]="form.apellido" #apellidoModel="ngModel" required />
+          <mat-error *ngIf="apellidoModel.errors?.['required']">Los apellidos son obligatorios.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="brand-field">
+          <mat-label>Direccion</mat-label>
+          <input matInput name="direccion" [(ngModel)]="form.direccion" #direccionModel="ngModel" required />
+          <mat-error *ngIf="direccionModel.errors?.['required']">La direccion es obligatoria.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="brand-field">
+          <mat-label>Telefono celular</mat-label>
+          <input matInput name="telefono" [(ngModel)]="form.telefono" #telefonoModel="ngModel" maxlength="9" required pattern="^[0-9]{9}$" (ngModelChange)="sanitizeTelefono($event)" />
+          <mat-hint align="end">{{ form.telefono.length || 0 }}/9</mat-hint>
+          <mat-error *ngIf="telefonoModel.errors?.['required']">El telefono es obligatorio.</mat-error>
+          <mat-error *ngIf="telefonoModel.errors?.['pattern']">El telefono debe tener 9 digitos.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="brand-field">
+          <mat-label>Telefono fijo</mat-label>
+          <input matInput name="tel_fijo" [(ngModel)]="form.tel_fijo" #telFijoModel="ngModel" maxlength="7" required pattern="^[0-9]{7}$" (ngModelChange)="sanitizeTelefonoFijo($event)" />
+          <mat-hint align="end">{{ form.tel_fijo.length || 0 }}/7</mat-hint>
+          <mat-error *ngIf="telFijoModel.errors?.['required']">El telefono fijo es obligatorio.</mat-error>
+          <mat-error *ngIf="telFijoModel.errors?.['pattern']">El telefono fijo debe tener 7 digitos.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="brand-field">
+          <mat-label>Correo electronico</mat-label>
+          <input matInput type="email" name="email" [(ngModel)]="form.email" #emailModel="ngModel" [pattern]="emailPattern" required (ngModelChange)="sanitizeCorreo($event)" />
+          <mat-error *ngIf="emailModel.errors?.['required']">El correo es obligatorio.</mat-error>
+          <mat-error *ngIf="emailModel.errors?.['pattern']">Ingresa un correo valido.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="brand-field">
+          <mat-label>Contrasena</mat-label>
+          <input matInput type="password" name="password" [(ngModel)]="form.password" #passwordModel="ngModel" required />
+          <mat-error *ngIf="passwordModel.errors?.['required']">La contrasena es obligatoria.</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-muted" (click)="closeCreateModal(psicologoForm)">Cancelar</button>
+        <button type="submit" class="btn-primary-soft" [disabled]="psicologoForm.invalid || !isCreateFormValid()">Guardar psicologo</button>
+      </div>
+    </form>
+  </div>
 </div>

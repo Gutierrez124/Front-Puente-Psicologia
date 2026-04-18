@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { HeaderComponent } from './dashboard/header/header.component';
 import { SidenavComponent } from './dashboard/sidenav/sidenav.component';
 import { LoginComponent } from '../app/Auth/login/login.component';
 import { FormsModule } from '@angular/forms';
@@ -18,12 +18,12 @@ import { PagWebComponent } from './pag-web/pag-web.component';
   declarations: [
     AppComponent,
     DashboardComponent,
-    HeaderComponent,
     SidenavComponent,
     LoginComponent,
     PagWebComponent,
   ],
   imports: [
+    CommonModule,
     HttpClientModule,
     BrowserModule,
     FormsModule,

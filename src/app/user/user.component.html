@@ -1,103 +1,91 @@
-<div class="container mx-auto px-4">
-  <section class="section">
-    <div class="section-body">
-      <h2 class="mb-4 text-xl font-bold text-center">Lista de Usuarios</h2>
+<section class="app-shell-page">
+  <div class="app-page-header">
+    <div>
+      <p class="brand-chip">Administracion</p>
+      <h1 class="app-page-title">Lista de usuarios</h1>
+      <p class="app-page-subtitle">
+        Vista general del sistema con acciones rapidas para editar o eliminar registros.
+      </p>
+    </div>
+    <button type="button" class="btn-secondary-brand" (click)="loadUsers()">
+      Actualizar lista
+    </button>
+  </div>
 
-      <div class="flex gap-2 mb-4">
-        <button mat-stroked-button color="primary" type="button" data-bs-toggle="modal" data-bs-target="#nuevoUsuario"
-          class="flex items-center gap-1 border border-blue-500 text-blue-500 px-3 py-1 rounded hover:bg-blue-50 transition">
-          <mat-icon class="text-base">person_add</mat-icon> Nuevo Usuario
-        </button>
-        <button mat-stroked-button color="warn"
-          class="flex items-center gap-1 border border-red-500 text-red-500 px-3 py-1 rounded hover:bg-red-50 transition">
-          <mat-icon class="text-base">delete</mat-icon>
-        </button>
+  <div class="surface-panel table-shell">
+    <div class="table-toolbar">
+      <div>
+        <h2 class="table-title">Usuarios registrados</h2>
+        <p class="table-subtitle">Control centralizado de datos personales y medios de contacto.</p>
       </div>
-
-      <div class="card border rounded shadow">
-        <div class="card-header bg-gray-100 font-semibold text-center py-2">
-          Usuarios Registrados
-        </div>
-        <div class="card-body p-4">
-          <div class="overflow-x-auto flex flex-col items-center">
-            <table mat-table [dataSource]="dataSource" matSort
-              class="w-full border border-gray-200 text-center text-sm">
-              
-              <!-- ID -->
-              <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 font-bold bg-gray-100">ID</th>
-                <td mat-cell *matCellDef="let user" class="px-4 py-2">{{user.id}}</td>
-              </ng-container>
-
-              <!-- DNI -->
-              <ng-container matColumnDef="dni">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 font-bold bg-gray-100">DNI</th>
-                <td mat-cell *matCellDef="let user" class="px-4 py-2">{{user.dni}}</td>
-              </ng-container>
-
-              <!-- Nombre -->
-              <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 font-bold bg-gray-100">Nombre</th>
-                <td mat-cell *matCellDef="let user" class="px-4 py-2">{{user.name}}</td>
-              </ng-container>
-
-              <!-- Apellido -->
-              <ng-container matColumnDef="apellido">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 font-bold bg-gray-100">Apellidos</th>
-                <td mat-cell *matCellDef="let user" class="px-4 py-2">{{user.apellido}}</td>
-              </ng-container>
-
-              <!-- Dirección -->
-              <ng-container matColumnDef="direccion">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 font-bold bg-gray-100">Dirección</th>
-                <td mat-cell *matCellDef="let user" class="px-4 py-2">{{user.direccion}}</td>
-              </ng-container>
-
-              <!-- Teléfono -->
-              <ng-container matColumnDef="telefono">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 font-bold bg-gray-100">Teléfono</th>
-                <td mat-cell *matCellDef="let user" class="px-4 py-2">{{user.telefono}}</td>
-              </ng-container>
-
-              <!-- Teléfono fijo -->
-              <ng-container matColumnDef="tel_fijo">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 font-bold bg-gray-100">Teléfono Fijo</th>
-                <td mat-cell *matCellDef="let user" class="px-4 py-2">{{user.tel_fijo}}</td>
-              </ng-container>
-
-              <!-- Email -->
-              <ng-container matColumnDef="email">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-4 py-2 font-bold bg-gray-100">Email</th>
-                <td mat-cell *matCellDef="let user" class="px-4 py-2">{{user.email}}</td>
-              </ng-container>
-
-              <!-- Acciones -->
-              <ng-container matColumnDef="acciones">
-                <th mat-header-cell *matHeaderCellDef class="px-4 py-2 font-bold bg-gray-100">Acciones</th>
-                <td mat-cell *matCellDef="let user" class="px-4 py-2">
-                  <button mat-icon-button color="warn" (click)="deleteUser(user.id)" class="mx-1 text-red-500 hover:text-red-700">
-                    <mat-icon class="text-lg">delete</mat-icon>
-                  </button>
-                 <a mat-icon-button color="primary" (click)="editarUsuario(user.id, 'user')" class="mx-1 text-blue-500 hover:text-blue-700">
-  <mat-icon class="text-lg">edit</mat-icon>
-</a>
-
-                  
-                </td>
-              </ng-container>
-
-              <tr mat-header-row *matHeaderRowDef="displayedColumns" class="hover:bg-gray-100"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover:bg-gray-100"></tr>
-            </table>
-
-            <!-- Paginador centrado -->
-           <div class="flex justify-end w-full mt-3">
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-</div>
-
-          </div>
-        </div>
+      <div class="table-actions">
+        <span class="brand-chip">{{ dataSource.data.length }} registros</span>
       </div>
     </div>
-  </section>
-</div>
+
+    <div class="table-wrapper">
+      <div class="overflow-x-auto">
+        <table mat-table [dataSource]="dataSource" matSort class="brand-table">
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+            <td mat-cell *matCellDef="let user">{{ user.id }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="dni">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>DNI</th>
+            <td mat-cell *matCellDef="let user">{{ user.dni }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+            <td mat-cell *matCellDef="let user">{{ user.name }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="apellido">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Apellidos</th>
+            <td mat-cell *matCellDef="let user">{{ user.apellido }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="direccion">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Direccion</th>
+            <td mat-cell *matCellDef="let user">{{ user.direccion }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="telefono">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Celular</th>
+            <td mat-cell *matCellDef="let user">{{ user.telefono }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="tel_fijo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Fijo</th>
+            <td mat-cell *matCellDef="let user">{{ user.tel_fijo }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Correo</th>
+            <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+            <td mat-cell *matCellDef="let user">
+              <button mat-icon-button color="primary" (click)="editarUsuario(user.id, 'user')" aria-label="Editar usuario">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deleteUser(user.id)" aria-label="Eliminar usuario">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="table-paginator">
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+</section>
