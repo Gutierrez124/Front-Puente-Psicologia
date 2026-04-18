@@ -6,11 +6,14 @@ import { FormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSortModule } from '@angular/material/sort';
 import { Routes, RouterModule } from '@angular/router';
 
 const pacienteRoutes: Routes = [
-  { path: '', component: PacienteComponent },
-  { path: 'save', component: SavePacienteComponent }
+  { path: '', component: PacienteComponent }
 ];
 
 @NgModule({
@@ -24,6 +27,10 @@ const pacienteRoutes: Routes = [
     MatTableModule,
     MatIconModule,
     MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSortModule,
     RouterModule.forChild(pacienteRoutes),
   ]
 })

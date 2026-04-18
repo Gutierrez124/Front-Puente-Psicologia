@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
+import {
+  EMAIL_REGEX,
+  isValidPersonForm,
+  sanitizeDigits,
+  sanitizeEmail,
+} from 'src/app/common-factory';
 
 @Component({
   selector: 'app-edit-user',
@@ -8,38 +15,63 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./edit-user.component.css']
 })
 export class editUserComponent implements OnInit {
-
-  editando: boolean = false;
-  origen: string = 'user';
-  userId: number = 0;
-  dni: string = '';
-  name: string = '';
-  apellido: string = '';
-  direccion: string = '';
-  telefono: string = '';
-  tel_fijo: string = '';
-  email: string = '';
-  password: string = '';
+  editando = false;
+  origen = 'user';
+  userId = 0;
+  dni = '';
+  name = '';
+  apellido = '';
+  direccion = '';
+  telefono = '';
+  tel_fijo = '';
+  email = '';
+  password = '';
+  emailPattern = EMAIL_REGEX.source;
 
   constructor(
-    private userService: UserService,  // Servicio para manejar usuarios
-    private activatedRoute: ActivatedRoute,  // Para obtener parámetros de la URL
+    private userService: UserService,
+    private activatedRoute: ActivatedRoute,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    // Obtener el ID del usuario desde la URL
     this.userId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     this.origen = this.activatedRoute.snapshot.queryParamMap.get('origen') || 'user';
-    // Llamar a la función para cargar los datos del usuario
     this.loadUserDetails();
   }
 
-  // Función para cargar los datos del usuario
+  sanitizeDni(value: string) {
+    this.dni = sanitizeDigits(value, 8);
+  }
+
+  sanitizeTelefono(value: string) {
+    this.telefono = sanitizeDigits(value, 9);
+  }
+
+  sanitizeTelefonoFijo(value: string) {
+    this.tel_fijo = sanitizeDigits(value, 7);
+  }
+
+  sanitizeCorreo(value: string) {
+    this.email = sanitizeEmail(value);
+  }
+
+  isFormDataValid(): boolean {
+    return isValidPersonForm({
+      dni: this.dni,
+      name: this.name,
+      apellido: this.apellido,
+      direccion: this.direccion,
+      telefono: this.telefono,
+      tel_fijo: this.tel_fijo,
+      email: this.email,
+      password: this.password,
+    });
+  }
+
   loadUserDetails() {
     this.userService.getUser(this.userId).subscribe(
       (user) => {
-        // Asignar los datos del usuario a las propiedades del componente
         this.dni = user.dni;
         this.name = user.name;
         this.apellido = user.apellido;
@@ -55,9 +87,22 @@ export class editUserComponent implements OnInit {
     );
   }
 
+  updateUser(form: NgForm) {
+    if (form.invalid || !this.isFormDataValid()) {
+      form.control.markAllAsTouched();
+      return;
+    }
 
-  updateUser() {
-    const updatedUser = { dni: this.dni, name: this.name, apellido: this.apellido, direccion: this.direccion, telefono: this.telefono, tel_fijo: this.tel_fijo, email: this.email, password: this.password };
+    const updatedUser = {
+      dni: this.dni,
+      name: this.name,
+      apellido: this.apellido,
+      direccion: this.direccion,
+      telefono: this.telefono,
+      tel_fijo: this.tel_fijo,
+      email: this.email,
+      password: this.password
+    };
 
     this.userService.updateUser(this.userId, updatedUser).subscribe(
       (response) => {
@@ -70,15 +115,14 @@ export class editUserComponent implements OnInit {
         } else if (this.origen === 'paciente') {
           this.router.navigate(['/dashboard/paciente']);
         }
-      
-
       },
       (error) => {
         console.error('Error al actualizar usuario:', error);
       }
     );
   }
-goBack(): void {
+
+  goBack(): void {
     if (this.origen === 'psicologo') {
       this.router.navigate(['/dashboard/psicologo']);
     } else if (this.origen === 'user') {

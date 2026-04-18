@@ -7,10 +7,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSortModule } from '@angular/material/sort';
 
 const routes: Routes = [
   { path: '', component: PsicologoComponent },
-  { path: 'create', component: CreatePsicologoComponent },
 ];
 
 @NgModule({
@@ -24,6 +27,10 @@ const routes: Routes = [
     MatIconModule,
     MatPaginatorModule,
     MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSortModule,
     RouterModule.forChild(routes),
   ]
 })

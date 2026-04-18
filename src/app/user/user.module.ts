@@ -7,6 +7,10 @@ import { editUserComponent } from './edit-user/edit-user.component';
 import { MatTableModule} from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSortModule } from '@angular/material/sort';
 import { RouterModule, Routes } from '@angular/router';;
 
 const userRoutes: Routes = [
@@ -25,6 +29,10 @@ const userRoutes: Routes = [
     MatTableModule,
     MatIconModule,
     MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSortModule,
     RouterModule.forChild(userRoutes),
   ]
 })

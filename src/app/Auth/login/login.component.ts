@@ -5,20 +5,22 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  email = '';
-  password = '';
+  public email = '';
+  public password = '';
+public errorMessage = '';
 
   constructor(private authService: AuthService, private router: Router) { }
 
   // login.component.ts - ngOnInit
-ngOnInit() {
+public ngOnInit() {
   this.authService.logout(false); // flag opcional para no navegar
 }
 
-  onLogin(){  
+ public onLogin(){  
+  this.errorMessage = ''; // Limpiar mensaje de error antes de intentar iniciar sesión
     this.authService.login(this.email, this.password).subscribe(
       (response) => {
         const user = response.user;
@@ -43,6 +45,7 @@ ngOnInit() {
       },
       (error) => {
         console.error('Error al iniciar sesión:', error);
+        this.errorMessage = 'Credenciales incorrectas. Por favor, inténtalo de nuevo.';
         // Aquí puedes agregar el manejo de errores si es necesario
       }
     );
